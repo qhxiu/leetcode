@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  var grades = [
+    [88,86,82],
+    [91,82,83],
+    [77,72,79],
+    [86,80,82]
+  ];
+
+  var total = 0;
+  var average = 0.0;
+  for (var row = 0; row < grades.length; ++row) {
+    for (var col = 0; col < grades[row].length; ++col) {
+      total += grades[row][col];
+    }
+    average = total / grades[row].length;
+//    console.log("Student " + parseInt(row + 1) + " average: " + average.toFixed(2));
+    total = 0;
+    average = 0.0;
+  }
+
+  function Point(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  function show(arr) {
+    for (var i = 0; i < arr.length; i++) {
+      console.log(arr[i].x + ", " + arr[i].y);
+    }
+  }
+  var p1 = new Point(1, 2);
+  var p2 = new Point(2, 4);
+  var p3 = new Point(8, 1);
+  var p4 = new Point(2, 9);
+  var point = [p1, p2, p3, p4];
+  for (var i = 0; i < point.length; i++) {
+//    console.log("Point " + parseInt(i + 1) + ": " + point[i].x + ", " + point[i].y)
+  }
+
+  function main() {
+    var arr = [8, 100, 50, 22, 15, 6, 1, 1000, 999, 0];
+    var sortArr = [];
+    for (var i = 0; i <= 1000; i++) {
+      sortArr[i] = 0;
+    }
+    for (var j = 0; j < arr.length; j++) {
+      var idx = arr[j];
+      sortArr[idx]++;
+    }
+
+    for (var m = sortArr.length - 1; m >= 0; m--) {
+      if (sortArr[m] !== 0) {
+        for (var n = 0; n < sortArr[m]; n++) {
+//          console.log(m)
+        }
+      }
+    }
+  }
+
+  function bubbleSort() {
+    var arr = [8, 100, 50, 22, 15, 6, 1, 1000, 999, 0];
+    for (var i = 0; i <= arr.length - 1; i++) {
+      for (var j = 0; j < arr.length - 1 - i; j++) {
+        if (arr[j] < arr[j + 1]) {
+          var t = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = t;
+        }
+      }
+    }
+    console.log(arr);
+  }
+//  bubbleSort();
+
+  function studentSort() {
+    var student = [{name: "huhu", score: 5}, {name: "haha", score: 3},
+      {name: "xixi", score: 5}, {name: "hengheng", score: 2}, {name: "gaoshou", score: 8}];
+    for (var i = 0; i < student.length; i++) {
+      for (var j = 0; j < student.length - 1 - i; j++) {
+        if (student[j].score < student[j + 1].score) {
+          var t = student[j];
+          student[j] = student[j + 1];
+          student[j + 1] = t;
+        }
+      }
+    }
+    for (var m = 0; m < student.length; m++) {
+      console.log(student[m].name);
+    }
+  }
+//  studentSort();
+
+  var arr = [6, 1, 2, 7, 9, 3, 4, 5, 10, 8];
+
+  function quickSort(arr, i, j) {
+    if (i >= j) return;
+    var temp = arr[i];
+    var left = i;
+    var right = j;
+    while (left !== right) {
+      while (arr[right] >=  temp && left < right) {
+        right--;
+      }
+      while (arr[left] <= temp && left < right) {
+        left++;
+      }
+      if (left < right) {
+        var t = arr[left];
+        arr[left] = arr[right];
+        arr[right] = t;
+      }
+    }
+
+      arr[i] = arr[left];
+      arr[left] = temp;
+
+    quickSort(arr, i, left - 1);
+    quickSort(arr, left + 1, j);
+
+    return arr;
+  }
+
+//  quickSort(arr, 0, arr.length - 1);
+
+  function quick_sort(A, p, r) {
+    if (p >= r) return;
+
+    var pivot = A[r];
+    var i = p;
+    for (var j = p; j <= r - 1; j++) {
+      if (A[j] < pivot) {
+        var tmp = A[i];
+        A[i] = A[j];
+        A[j] = tmp;
+        ++i;
+      }
+    }
+    var t = A[i];
+    A[i] = A[r];
+    A[r] = t;
+
+    quick_sort(A, p, i-1);
+    quick_sort(A, i+1, r);
+
+    return A;
+  }
+  console.log(quick_sort(arr, 0, arr.length-1));
+
+  var book = [20, 40, 32, 67, 40, 20, 89, 300, 400, 15];
+  function bucketSort(n, arr) {
+    var tempArr = [],
+      res = [];
+   for (var i = 0; i <= 1000; i++) {
+     tempArr[i] = 0;
+   }
+   for (var j = 0; j < n; j++) {
+     var t = book[j];
+     tempArr[t] = 1;
+   }
+    for (var m = 0; m <= 1000; m++) {
+     if (tempArr[m] === 1) {
+       res.push(m);
+     }
+    }
+    console.log(res);
+    return res;
+  }
+//  bucketSort(10, book);
+
+  function pracSort1(n, arr) {
+    for (var i = 0; i < n; i++) {
+      for (var j = 0; j < n - 1 - i; j++) {
+        if (arr[j] > arr[j+1]) {
+          var temp = arr[j];
+          arr[j] = arr[j+1];
+          arr[j+1] = temp;
+        }
+      }
+    }
+    var res = [];
+    res.push(arr[0]);
+    for (var m = 1; m < n; m++) {
+      if (arr[m] !== arr[m - 1]) {
+        res.push(arr[m]);
+      }
+    }
+    console.log(res);
+  }
+//  pracSort1(10, book);
+
+  function pracSort2(n, arr) {
+    var temp = quickSort(arr, 0, n - 1);
+    var res = [];
+    res.push(arr[0]);
+    for (var m = 1; m < n; m++) {
+      if (arr[m] !== arr[m - 1]) {
+        res.push(arr[m]);
+      }
+    }
+    console.log(res);
+  }
+//  pracSort2(10, book);
+
+  function insertSort(a, n) {
+    if (n <= 1) return;
+    for (var i = 1; i < n; i++) {
+      var value = a[i];
+      var j = i - 1;
+      for (; j >= 0; j--) {
+        if (a[j] > value) {
+          a[j+1] = a[j];
+        } else {
+          break;
+        }
+      }
+      a[j+1] = value;
+    }
+    console.log(a);
+  }
+//  insertSort(book, 10);
+
+  function selectionSort(arr) {
+    for (var i = 0; i < arr.length - 1; i++) {
+      var index = i;
+      for (var j = i + 1; j < arr.length; j++) {
+        if (arr[j] < arr[index]) {
+          index = j;
+        }
+      }
+      var temp = arr[i];
+      arr[i] = arr[index];
+      arr[index] = temp;
+    }
+    console.log(arr);
+  }
+//  selectionSort(book);
+
+  function mergeArr(left, right) {
+    var res = [];
+    var i = j = 0;
+    while (i < left.length && j < right.length) {
+      if (left[i] <= right[j]) {
+        res.push(left[i]);
+        ++i;
+      } else {
+        res.push(right[j]);
+        ++j;
+      }
+    }
+    return res.concat(left.slice(i)).concat(right.slice(j));
+  }
+  function mergeSort(arr) {
+    if (arr.length <= 1) return arr;
+
+    var mid = Math.floor(arr.length / 2);
+    var left = arr.slice(0, mid);
+    var right = arr.slice(mid);
+    return mergeArr(mergeSort(left), mergeSort(right));
+  }
+
+//  console.log(mergeSort([11, 8, 3, 9, 7, 1, 2, 5]));
+
+
+</script>
+</body>
+</html>

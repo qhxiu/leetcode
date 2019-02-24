@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+
+
+  // 链表
+  var A = {
+    val: 1,
+    next: {
+      val: 2, next: { val: 3, next: {val: 2, next: {val: 1, next: null}} }
+    }
+  };
+  var B = {
+    val: 5, next: {
+      val: 0, next: {
+        val: 1, next: {
+          val: 8, next: {
+            val: 4, next: {
+              val: 5, next: null
+            }
+          }
+        }
+      }
+    }
+  };
+
+function ListNode(val) {
+ this.val = val;
+ this.next = null;
+}
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
+
+//树
+var node = {
+    val: 4,
+    right: {
+      val: 7,
+      right: { val: 9, right: null, left: null },
+      left: { val: 5, right: null, left: null } },
+    left: {
+      val: 2,
+      right: { val: 3, right: null, left: null },
+      left: { val: 1, right: null, left: null } }
+};
+
+  var canConstruct = function(ransomNote, magazine) {
+    var map1 = {};
+    var map2 = {};
+    for (var i = 0; i < ransomNote.length; i++) {
+      if (!map1[ransomNote[i]]) {
+        map1[ransomNote[i]] = 1;
+      } else {
+        map1[ransomNote[i]] = ++map1[ransomNote[i]];
+      }
+    }
+
+    for (var j = 0; j < magazine.length; j++) {
+      if (!map2[magazine[j]]) {
+        map2[magazine[j]] = 1;
+      } else {
+        map2[magazine[j]] = ++map2[magazine[j]];
+      }
+    }
+
+    for (var key in map1) {
+      if (!map2[key] || map2[key] < map1[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  var firstUniqChar = function(s) {
+    var hash = {};
+    for (var i = 0; i < s.length; i++) {
+      if (!hash[s[i]]) {
+        hash[s[i]] = 1;
+      } else {
+        hash[s[i]] = ++hash[s[i]];
+      }
+    }
+    var str = null;
+    for (var key in hash) {
+      if (hash[key]  === 1) {
+        str = key;
+        break;
+      }
+    }
+
+    for (var j = 0; j < s.length; j++) {
+      if (s[j] === str) {
+        return j;
+      }
+    }
+
+    return -1;
+  };
+
+  var findTheDifference = function(s, t) {
+    var hash1 = {};
+    var hash2 = {};
+    for (var i = 0; i < s.length; i++) {
+      if (!hash1[s[i]]) {
+        hash1[s[i]] = 1;
+      } else {
+        hash1[s[i]] = ++hash1[s[i]];
+      }
+    }
+    for (var j = 0; j < t.length; j++) {
+      if (!hash2[t[j]]) {
+        hash2[t[j]] = 1;
+      } else {
+        hash2[t[j]] = ++hash2[t[j]];
+      }
+    }
+
+    for (var key in hash2) {
+      if (hash2[key] - hash1[key] === 1) {
+        return key;
+      }
+      if (!hash1[key] && hash2[key]) {
+        return key;
+      }
+    }
+  };
+
+  var readBinaryWatch = function(num) {
+    var hours = [0, 0, 0, 0],
+      minutes = [0, 0, 0, 0, 0, 0],
+      ans = [];
+
+    function dfs(depth, p) {
+      if (depth >= num) {
+        var h = 0;
+        for (var i = 0;i < 4; i++) {
+          if (hours[i]) {
+            h += Math.pow(2, i);
+          }
+        }
+        if (h >= 12) return;
+        var m = 0;
+        for (var j = 0;j < 6; j++) {
+          if (minutes[j]) {
+            m += Math.pow(2, j);
+          }
+        }
+        if (m >= 60) return;
+        var s = String(h) + ':';
+        if (m < 10) {
+          s += '0';
+        }
+        s += String(m);
+        ans.push(s);
+        return;
+      }
+      if (p < 6) {
+        for (var a = p; a < 6; a++) {
+          if (!minutes[a]) {
+            minutes[a] = 1;
+            dfs(depth + 1, a);
+            minutes[a] = 0;
+          }
+        }
+      }
+      var x = 0;
+      if (p > 6) {
+        x = p - 6;
+      }
+      for (var b = x; b < 4; b++) {
+        if (!hours[b]) {
+          hours[b] = 1;
+          dfs(depth + 1, b + 6);
+          hours[b] = 0;
+        }
+      }
+      return;
+    }
+    dfs(0, 0);
+    return ans;
+  };
+
+  var nextPermutation = function(nums) {
+    if (nums.length <= 1) return;
+    var j = nums.length - 1;
+    while (j - 1 >= 0 && nums[j - 1] >= nums[j]) {
+      --j;
+    }
+    if (j === 0) {
+      for (var i = 0; i < nums.length/2; ++i) {
+
+      }
+    }
+  };
+
+  var merge = function(intervals) {
+    var arr = [];
+    var first = null;
+    var array = [];
+
+    for (var i = 0; i < intervals.length; i++) {
+      var start = intervals[i].start;
+      var end = intervals[i].end;
+      if (start !== end) {
+        for (var j = start; j <= end; j++) {
+          if (j === end && arr[j] !== 1) {
+            arr[j] = 2;
+          } else {
+            arr[j] = 1;
+          }
+        }
+      } else {
+        if (arr[start] === undefined) {
+          arr[start] = 3;
+        }
+      }
+    }
+    for (var m = 0; m < arr.length; m++) {
+      if (first === undefined && arr[i] === 1) {
+        first = i;
+      }
+      if (arr[i] === 2) {
+        array.push({start: first, end: i});
+        first = undefined;
+      }
+      if (arr[i] === 3) {
+        array.push({start: i, end: i});
+      }
+    }
+    return array;
+  };
+  console.log(nextPermutation([1, 2, 3]));
+
+</script>
+</body>
+</html>
